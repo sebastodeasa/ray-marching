@@ -8,7 +8,7 @@ public:
 	float minDistanceFromPoint(const Vector3& p) const; // returns minimum distance from point p to any object in the scene
 	float maxDistanceFromPoint(const Vector3& p) const; // returns maximum distance from point p to any object in the scene
 	sf::Color closestColorToPoint(const Vector3& p) const; // returns color of object closest to point p
-	sf::Color furthestColorToPoint(const Vector3& p) const; // returns color of object furthest from point p
+	sf::Color furthestColorFromPoint(const Vector3& p) const; // returns color of object furthest from point p
 	void addObject(SceneObject* const obj) { objects.push_back(obj); }
 
 	~Scene();

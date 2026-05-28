@@ -8,7 +8,7 @@ struct CameraSettings
 	float fov = 1;
 	float renderDist = 50;
 	int maxSteps = 150;
-	float minDist = 0.005;
+	float minDist = 0.002;
 	float moveSpeed = 0.05;
 	float lookSpeed = 0.002;
 };
@@ -38,7 +38,7 @@ public:
 	Scene* activeScene; // scene that the camera is currently rendering
 	bool findsMinDistance = true; // whether ray marcher should find minimum distance to objects (true for normal ray marching, false for boolean rendering)
 	float distFunc(const Vector3& p) const { return findsMinDistance ? activeScene->minDistanceFromPoint(p) : activeScene->maxDistanceFromPoint(p); }
-	sf::Color colorAtPoint(const Vector3& p) const { return findsMinDistance ? activeScene->closestColorToPoint(p) : activeScene->furthestColorToPoint(p); }
+	sf::Color colorAtPoint(const Vector3& p) const { return findsMinDistance ? activeScene->closestColorToPoint(p) : activeScene->furthestColorFromPoint(p); }
 
 	bool calculateLighting = true; // if true, objects are shaded normally. if false, each pixel is shaded based on how many steps the corresponding ray took
 

@@ -52,7 +52,7 @@ sf::Color Scene::closestColorToPoint(const Vector3& p) const
 }
 
 // returns color of object furthest from point p
-sf::Color Scene::furthestColorToPoint(const Vector3& p) const
+sf::Color Scene::furthestColorFromPoint(const Vector3& p) const
 {
     SceneObject* furthest = objects[0];
     float maxDist = 0;

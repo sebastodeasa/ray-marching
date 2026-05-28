@@ -63,7 +63,7 @@ int main()
 
 	const sf::Vector2i WINDOW_SIZE(2000, 2000); // actual pixel resolution of the window on the screen
 
-    sf::Vector2i imageResolution(150, 150); // resolution that the ray marcher renders at -- will be scaled up to fit the window
+    sf::Vector2i imageResolution(300, 300); // resolution that the ray marcher renders at -- will be scaled up to fit the window
 	sf::Uint8* pixels = new sf::Uint8[imageResolution.x * imageResolution.y * 4]; // array of RGBA values for each pixel rendered
 
 	// create SFML window and texture objects for rendering
@@ -85,18 +85,23 @@ int main()
 	// create scene and camera objects
     Scene* scene = new Scene();
     Camera cam(scene, Vector3(-2, 0.2, 0));
-    cam.calculateLighting = true;
-    //cam.findsMinDistance = false; // uncomment for boolean rendering
+    cam.calculateLighting = false;
+    cam.findsMinDistance = true; // make false for boolean rendering
 
 	// add hardcoded objects to scene for testing (scene owns pointers so they will be deleted when scene is deleted)
-    scene->addObject(new Box(Vector3(2, 0, 0), Vector3(0.5, 0.5, 0.5), sf::Color::Yellow));
-    scene->addObject(new Sphere(Vector3(2, 0.5, -0.5), 0.5, sf::Color::Green, false));
-	Sphere* s1 = new Sphere(Vector3(2, 0, 0.5), 0.5, sf::Color::Magenta, false); // used for temporary testing animation, so a pointer is kept here to change its position every frame
-    scene->addObject(s1);
 
-    // uncomment to add a mandelbulb to the scene:
-    //MandelBulb* mb = new MandelBulb(12, 8, sf::Color::White);
-    //scene->addObject(mb);
+    // uncomment following block to add some primitive solids to the scene:
+    /*
+    scene->addObject(new Box(Vector3(2, 0, 0), Vector3(0.5, 0.5, 0.5), sf::Color::Yellow));
+    scene->addObject(new Sphere(Vector3(2, 0.5, -0.5), 0.5, sf::Color::Green, true));
+	Sphere* s1 = new Sphere(Vector3(2, 0, 0.5), 0.5, sf::Color::Magenta, true); // used for temporary testing animation, so a pointer is kept here to change its position every frame
+    scene->addObject(s1);
+    */
+
+    // uncomment following block to add a mandelbulb to the scene:
+    
+    MandelBulb* mb = new MandelBulb(12, 8, sf::Color::White);
+    scene->addObject(mb);
     
 
     unsigned int frames = 0; // counter of total frames rendered, for animating the hardcoded sphere object
@@ -119,11 +124,13 @@ int main()
         {
             processInputs(cam, window, WINDOW_SIZE);
 
-            // animating hardcoded sphere up and down
-            s1->setPosition(Vector3(s1->getPosition().x, sinf((float)frames / 100), s1->getPosition().z));
+            // animating hardcoded sphere up and down (comment if not using primitive solids scene)
+            /*
+            s1->setPosition(Vector3(s1->getPosition().x, sinf((float)frames / 50), s1->getPosition().z));
+            */
 
 			// process inputs for editing mandelbulb parameters (uncomment only if mandelbulb is in scene)
-            /*
+            
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
                 mb->power += 0.05;
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
@@ -132,7 +139,7 @@ int main()
                 mb->iters--;
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
                 mb->iters++;
-            */
+            
 
             // render
             for (int i = 0; i < imageResolution.x; i++)
@@ -150,9 +157,11 @@ int main()
             screenSprite.setScale((float)WINDOW_SIZE.x / imageResolution.x, (float)WINDOW_SIZE.y / imageResolution.y); // scale sprite to fit whole window
             window.draw(screenSprite); // draw sprite to window
 
-			// text on screen for displaying mandelbulb parameters:
-            //string debugText = "iterations: " + to_string(mb->iters) + "\npower: " + to_string(mb->power);
-            //window.draw(sf::Text(debugText, font, 50));
+
+			// uncomment for text on screen for displaying mandelbulb parameters:
+            string debugText = "iterations: " + to_string(mb->iters) + "\npower: " + to_string(mb->power);
+            window.draw(sf::Text(debugText, font, 50));
+
 
             window.display(); // display window
 
