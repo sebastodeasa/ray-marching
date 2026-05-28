@@ -28,7 +28,7 @@ A video of the ray marcher rendering a scene with a mandelbulb, which is having 
 
 ## Controls
 
-The camera is moved via the WASD keys, and the mouse is used to look around. Hold down left ctrl to zoom the camera's FOV.
+Use the WASD keys to move the camera around the horizontal plane, and use the spacebar and left shift key to move the camera straight up and down, respectively. Move the mouse to look around, and hold down the left ctrl key to zoom the camera's FOV.
 
 If the mandelbulb is in the scene and the corresponding code is uncommented, the arrow keys can be used to adjust the parameters of the mandelbulb function:
 - Up/down to increase/decrease the "power" of the mandelbulb
