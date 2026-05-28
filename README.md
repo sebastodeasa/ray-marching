@@ -13,18 +13,17 @@ This is a personal project that I started alongside my college C++ and programmi
 
 ## Gallery
 
-![alt text](videos/raymarching1.mp4 "raymarching1.mp4")
+https://github.com/user-attachments/assets/a1acac76-b442-443d-ada8-e7ef5c7c286f
 
 A video of the ray marcher rendering a scene with a box and two spheres, one of which is animated to move up and down.
 
-![alt text](videos/raymarching2.mp4 "raymarching2.mp4")
+https://github.com/user-attachments/assets/94fb9645-f0bc-4317-93a4-23cbb7122896
 
 A video of the ray marcher rendering a scene with the same box and two spheres; however, it is now set to march rays using the maximum distance from the ray to the scene objects rather than the minimum, enabling boolean rendering. The spheres are both set to have negative distance functions, while the box has the usual positive distance function, resulting in the spheres being subtracted from the box's geometry.
 
-![alt text](videos/raymarching3.mp4 "raymarching3.mp4")
+https://github.com/user-attachments/assets/87a4ce36-456a-4d22-81f5-a640784b58d9
 
 A video of the ray marcher rendering a scene with a mandelbulb, which is having its parameters dynamically updated over time.
-
 
 
 ## Controls
