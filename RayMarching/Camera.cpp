@@ -9,8 +9,9 @@ Vector3 Camera::ndcToRay(const float x, const float y) const
     float screenY = 1 - y * 2;
 
     // get world space ray
-    Vector3 rightComp = right * screenX * settings.fov;
-    Vector3 upComp = up * screenY * settings.fov;
+	float fov = isZoomed ? settings.zoomFov : settings.normalFov;
+    Vector3 rightComp = right * screenX * fov;
+    Vector3 upComp = up * screenY * fov;
     Vector3 result = forward + rightComp + upComp;
     result.normalize();
 

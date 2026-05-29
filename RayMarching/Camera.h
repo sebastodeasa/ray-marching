@@ -5,7 +5,8 @@
 // struct to hold camera settings that can be easily tweaked
 struct CameraSettings
 {
-	float fov = 1;
+	float normalFov = 1;
+	float zoomFov = 0.2;
 	float renderDist = 50;
 	int maxSteps = 150;
 	float minDist = 0.002;
@@ -41,6 +42,7 @@ public:
 	sf::Color colorAtPoint(const Vector3& p) const { return findsMinDistance ? activeScene->closestColorToPoint(p) : activeScene->furthestColorFromPoint(p); }
 
 	bool calculateLighting = true; // if true, objects are shaded normally. if false, each pixel is shaded based on how many steps the corresponding ray took
+	bool isZoomed = false; // whether camera should use normal or zoom FOV
 
 private:
 	

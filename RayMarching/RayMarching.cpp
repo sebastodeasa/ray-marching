@@ -52,10 +52,7 @@ void processInputs(Camera& cam, const sf::RenderWindow& window, const sf::Vector
     cam.look(mouseInput);
 
 	// zoom camera's FOV if left control is held
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl))
-        cam.settings.fov = 0.2;
-    else
-        cam.settings.fov = 1;
+	cam.isZoomed = sf::Keyboard::isKeyPressed(sf::Keyboard::LControl);
 }
 
 
