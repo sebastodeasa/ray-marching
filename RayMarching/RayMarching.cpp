@@ -84,8 +84,8 @@ int main()
     }
 
 	// create scene and camera objects
-    Scene* scene = new Scene();
-    Camera cam(scene, Vector3(-2, 0.2, 0));
+    Scene scene;
+    Camera cam(&scene, Vector3(-2, 0.2, 0));
     cam.calculateLighting = false;
     cam.findsMinDistance = true; // make false for boolean rendering
 
@@ -93,16 +93,16 @@ int main()
 
     // uncomment following block to add some primitive solids to the scene:
     /*
-    scene->addObject(new Box(Vector3(2, 0, 0), Vector3(0.5, 0.5, 0.5), sf::Color::Yellow));
-    scene->addObject(new Sphere(Vector3(2, 0.5, -0.5), 0.5, sf::Color::Green, true));
+    scene.addObject(new Box(Vector3(2, 0, 0), Vector3(0.5, 0.5, 0.5), sf::Color::Yellow));
+    scene.addObject(new Sphere(Vector3(2, 0.5, -0.5), 0.5, sf::Color::Green, true));
 	Sphere* s1 = new Sphere(Vector3(2, 0, 0.5), 0.5, sf::Color::Magenta, true); // used for temporary testing animation, so a pointer is kept here to change its position every frame
-    scene->addObject(s1);
+    scene.addObject(s1);
     */
 
     // uncomment following block to add a mandelbulb to the scene:
     
     MandelBulb* mb = new MandelBulb(12, 8, sf::Color::White);
-    scene->addObject(mb);
+    scene.addObject(mb);
     
 
     unsigned int frames = 0; // counter of total frames rendered
@@ -185,7 +185,6 @@ int main()
 
 	
     delete[] pixels;
-	delete scene;
 
     return 0;
 }
