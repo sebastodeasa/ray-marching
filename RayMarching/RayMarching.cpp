@@ -67,10 +67,11 @@ int main()
     sf::Vector2i imageResolution(300, 300); // resolution that the ray marcher renders at -- will be scaled up to fit the window
 	sf::Uint8* pixels = new sf::Uint8[imageResolution.x * imageResolution.y * 4]; // array of RGBA values for each pixel rendered
 
-	// create SFML window and texture objects for rendering
+	// create SFML window, texture, and sprite objects for rendering
     sf::RenderWindow window(sf::VideoMode(WINDOW_SIZE.x, WINDOW_SIZE.y), "ray marching", sf::Style::Close | sf::Style::Titlebar);
     sf::Texture screenTexture;
     screenTexture.create(imageResolution.x, imageResolution.y);
+    sf::Sprite screenSprite;
 
 	sf::Mouse::setPosition(sf::Vector2i(WINDOW_SIZE.x / 2, WINDOW_SIZE.y / 2), window); // set mouse position to center of window
     window.setMouseCursorVisible(false);
@@ -159,10 +160,11 @@ int main()
 
 			// update window with new rendered image
             screenTexture.update(pixels); // make texture from pixels
-            sf::Sprite screenSprite(screenTexture); // make sprite from texture
+			screenSprite.setTexture(screenTexture); // make sprite from texture
             screenSprite.setScale((float)WINDOW_SIZE.x / imageResolution.x, (float)WINDOW_SIZE.y / imageResolution.y); // scale sprite to fit whole window
             window.draw(screenSprite); // draw sprite to window
 
+            // draw text to screen
 			string debugText = "FPS: " + to_string(fps);
             debugText.append("\niterations: " + to_string(mb->iters) + "\npower: " + to_string(mb->power)); // uncomment for displaying mandelbulb parameters:
             window.draw(sf::Text(debugText, font, 50));
