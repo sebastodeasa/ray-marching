@@ -1,5 +1,6 @@
 #include <SFML\Graphics.hpp>
 #include <iostream>
+#include <chrono>
 #include "Vector3.h"
 #include "SceneObjects.h"
 #include "Camera.h"
@@ -104,7 +105,12 @@ int main()
     scene->addObject(mb);
     
 
-    unsigned int frames = 0; // counter of total frames rendered, for animating the hardcoded sphere object
+    unsigned int frames = 0; // counter of total frames rendered
+    unsigned int framesToMeasure = 5; // number of frames to render between each FPS measurement
+	float fps = -1;
+	auto lastTimeStamp = chrono::high_resolution_clock::now(); // used for calculating and displaying FPS
+    auto currentTimeStamp = chrono::high_resolution_clock::now(); // ^
+
 
     while (window.isOpen())
     {
@@ -157,13 +163,20 @@ int main()
             screenSprite.setScale((float)WINDOW_SIZE.x / imageResolution.x, (float)WINDOW_SIZE.y / imageResolution.y); // scale sprite to fit whole window
             window.draw(screenSprite); // draw sprite to window
 
-
-			// uncomment for text on screen for displaying mandelbulb parameters:
-            string debugText = "iterations: " + to_string(mb->iters) + "\npower: " + to_string(mb->power);
+			string debugText = "FPS: " + to_string(fps);
+            debugText.append("\niterations: " + to_string(mb->iters) + "\npower: " + to_string(mb->power)); // uncomment for displaying mandelbulb parameters:
             window.draw(sf::Text(debugText, font, 50));
 
 
             window.display(); // display window
+
+
+			if (frames % framesToMeasure == 0) // calculate and display FPS every framesToMeasure frames
+			{
+				currentTimeStamp = chrono::high_resolution_clock::now();
+				fps = framesToMeasure / chrono::duration<float>(currentTimeStamp - lastTimeStamp).count();
+				lastTimeStamp = currentTimeStamp;
+			}
 
             frames++;
         }
